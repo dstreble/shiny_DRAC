@@ -1692,14 +1692,12 @@ shinyServer(function(input, output){
                            
                            data$cosmic$corr.fieldChanges <- fieldChange
                            
-                           res <- use_DRAC4ceramic(data)
+                           res <- use_DRAC4cave(data)
                            
                            result <- res
                            
-                           result <- NULL
-                           
                          }else if(material == "cave flint"){
-                           
+                           result <- NULL
                          }else{
                            return(NULL)
                          }
@@ -1709,15 +1707,19 @@ shinyServer(function(input, output){
   })
   
   output$ageText <- renderUI({
+    material <- input$material
+    
+    if(!(material %in% c("sediment", "flint",  "ceramic", "cave sediment"))){
+      return(helpText("This context is still under development."))
+    }
+    
     data <- age()
     
     if(is.null(data)){
       return(NULL)
     }
-    
-    helpText("DRAC results on the next page")
-    
-    
+      
+    return(helpText("DRAC results on the next page"))
   })
 
   # Results
@@ -1729,8 +1731,13 @@ shinyServer(function(input, output){
   resultTable <- reactive({
     
     material <- input$material
+    temp.data <- age()
     
-    data <- age()@data
+    if(is.null(temp.data)){
+      return(NULL)
+    }
+    
+    data <- temp.data@data
     
     age <- data$age
     age_err <- data$age.err
@@ -1845,7 +1852,7 @@ shinyServer(function(input, output){
             tags$th(rowspan = 2, 'Depth [m]'),
             tags$th(colspan = 4, 'flint'),
             tags$th(colspan = 4, 'Sediment'),
-            tags$th(colspan = 5, 'Dose rate [Gy/ka]'),
+            tags$th(colspan = 5, 'D\u0307 [Gy/ka]'),
             tags$th(rowspan = 2, 'D\u2091 [Gy]'),
             tags$th(rowspan = 2, 'Age [ka]')
           ),

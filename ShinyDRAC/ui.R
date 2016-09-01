@@ -1,7 +1,7 @@
 require(shiny)
 
 shinyUI(fluidPage(
-  titlePanel("DRAC"),
+  titlePanel("ShinyDRAC"),
   
   tabsetPanel(
     tabPanel("Data",
