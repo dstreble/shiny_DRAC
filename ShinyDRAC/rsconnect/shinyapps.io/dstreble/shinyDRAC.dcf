@@ -2,6 +2,6 @@ name: shinyDRAC
 account: dstreble
 server: shinyapps.io
 appId: 123176
-bundleId: 545419
+bundleId: 562669
 url: https://dstreble.shinyapps.io/shinyDRAC/
-when: 1472643604.38862
+when: 1474380019.37343
